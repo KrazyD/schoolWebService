@@ -1,0 +1,38 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Таблица оценок учеников</title>
+</head>
+<body>
+<table border="1">
+    <caption>Оценки учеников</caption>
+    <tr>
+        <th>Номер класса</th>
+        <th>ФИО ученика</th>
+        <th>Название предмета</th>
+        <th>Оценка</th>
+        <th>Дата получения оценки</th>
+    </tr>
+    <tr th:each="row: ${rows}">
+        <td th:text="${row.getGradeNumber()}"></td>
+        <td th:text="${row.getFullName()}"></td>
+        <td th:text="${row.getSubjectName()}"></td>
+        <td th:text="${row.getMark()}"></td>
+        <td th:text="${row.getMarkDate()}"></td>
+    </tr>
+</table>
+
+<form method="POST" enctype="multipart/form-data" action="/">
+    <table>
+        <tr>
+            <td>Файл для загрузки оценок:</td>
+            <td><input type="file" name="file"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Загрузить"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,43 @@
+package com.example.test.controller;
+
+import com.example.test.storage.StorageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.text.ParseException;
+
+@Controller
+public class MarkController {
+
+    private final StorageService storageService;
+
+    @Autowired
+    public MarkController(StorageService storageService) {
+        this.storageService = storageService;
+    }
+
+    @GetMapping("/")
+    public String getStudentTable(Model model) {
+
+        model.addAttribute("rows", storageService.loadAll());
+
+        return "studentTable";
+    }
+
+    @PostMapping("/")
+    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+
+        try {
+            storageService.storeFile(file);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/";
+    }
+}
