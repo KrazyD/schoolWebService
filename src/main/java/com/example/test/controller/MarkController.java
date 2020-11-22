@@ -29,7 +29,7 @@ public class MarkController {
         return "studentTable";
     }
 
-    @PostMapping("/")
+    @PostMapping("/student/mark")
     public String handleFileUpload(@RequestParam("file") MultipartFile file) {
 
         try {
